@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resumo Pós-Aula — Felipe — CZK English</title>
+
+  <style>
+    :root{
+      --page-bg: #f4f7fa;
+      --card-bg: #fff;
+      --accent: #2f86e6;
+      --accent-dark: #1f6fd1;
+      --green: #36b37e;
+      --muted: #6b7280;
+      --border: #e6eef8;
+      --box-radius: 12px;
+      --card-width: 720px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--page-bg);
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 22px rgba(33,47,60,0.06);
+      border:1px solid rgba(15,33,64,0.03);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg,#fff,#f2fbff);
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.3rem;
+      color:#0f1724;
+    }
+
+    .meta{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(47,134,230,0.12);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    main{margin-top:18px;}
+    section{margin-top:18px;}
+
+    .panel{
+      background:#fbfdff;
+      border-radius:12px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+
+    .outline-card{
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:#fff;
+    }
+
+    /* Vocabulary boxes */
+    .vocab-grid{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .vocab{
+      flex:1;
+      min-width:220px;
+      border-radius:10px;
+      padding:14px;
+      border:2px solid #dfeefe;
+      background:#fff;
+    }
+
+    .vocab.green{
+      border-color:#c9f3dc;
+      background:#f5fff6;
+    }
+
+    .vocab h3{
+      margin:0;
+      font-size:1rem;
+      color:#154360;
+    }
+
+    .vocab p{
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Transcrição / gravação buttons */
+    .media-row{
+      display:flex;
+      gap:14px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:center;
+    }
+
+    /* Homework box */
+    .homework{
+      background:#f3fff6;
+      border:1px solid #d7f5df;
+      border-radius:10px;
+      padding:14px;
+      margin-top:10px;
+    }
+
+    /* ===== TALK TIME – TABELA RETANGULAR ===== */
+    .speaking{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border);
+      max-width:640px;
+    }
+
+    .speaking h2{
+      margin:0 0 10px 0;
+      font-size:1.05rem;
+      color:#0f1724;
+    }
+
+    .talk-table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e1e9f5;
+      font-size:0.9rem;
+    }
+
+    .talk-table th,
+    .talk-table td{
+      padding:8px 10px;
+      text-align:left;
+    }
+
+    .talk-table th{
+      background:#eef4ff;
+      color:#1b3556;
+      font-weight:700;
+      border-bottom:1px solid #dde6fa;
+    }
+
+    .row-teacher{
+      background:#e7f2ff; /* azul clarinho */
+    }
+
+    .row-student{
+      background:#e8f7ef; /* verde clarinho */
+    }
+
+    .talk-label{
+      font-weight:700;
+    }
+
+    .talk-percent{
+      font-weight:700;
+      color:#0f1724;
+    }
+
+    .talk-time{
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .card{padding:18px;border-radius:14px;}
+      .vocab-grid{flex-direction:column;}
+      .media-row{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="main">
+      <header>
+        <div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="badge">PÓS-AULA</span>
+            <h1>Body Image, Ozempic e Body Positivity</h1>
+          </div>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Professor:</strong> César &nbsp;•&nbsp;
+            <strong>Aluno:</strong> Felipe &nbsp;•&nbsp;
+            <strong>Data:</strong> 11/05/2026
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Salvar PDF</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <p style="margin:0;font-weight:600;color:#08325a;">
+            Resumo da aula sobre envelhecimento, imagem corporal, uso de esteroides, Ozempic e vocabulário de saúde para revisão.
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Resumo da Aula</h2>
+          <div class="outline-card">
+            <p style="margin:0 0 8px 0;">
+              Nesta aula, começamos retomando uma atividade de listening sobre <strong>coisas que fazem as pessoas envelhecerem mais rápido</strong>. A partir do vídeo, revisamos a palavra <strong>age</strong>, que pode ser substantivo (<em>my age</em>) e também verbo (<em>to age</em> = envelhecer). Felipe praticou palpites sobre itens como <em>alcohol, smoking, sleep deprivation, dehydration, obesity, sun exposure, air pollution</em> e <em>loneliness</em>.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Depois, conectamos o tema de <strong>obesity</strong> com <strong>body image</strong>. Felipe comentou que faz exercícios por saúde, mente e disposição, e também refletiu que, no Brasil, muitas pessoas treinam por pressão estética. A conversa avançou para o uso de <strong>steroids</strong>, com discussão sobre países onde o uso é mais comum, incluindo Estados Unidos, Brasil, Arábia Saudita, Noruega e Reino Unido.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Em seguida, fizemos uma ponte entre <strong>steroids</strong> e <strong>Ozempic</strong>: os dois foram discutidos como possíveis “atalhos” para resultados mais rápidos, seja para ficar maior e mais forte, seja para ficar mais magro. Também foi trabalhada a ideia de que resultados rápidos podem gerar motivação, mas o perigo aparece quando a pessoa se torna dependente da solução e ignora hábitos como alimentação, sono e exercício.
+            </p>
+            <p style="margin:0;">
+              No final, trabalhamos dois vídeos sobre <strong>body positivity</strong> e a crítica de que tanto o movimento de “ame seu corpo sem mudar nada” quanto o uso de remédios como solução rápida podem transmitir uma mensagem parecida: não precisar comer melhor, se mover mais ou cuidar da saúde. Felipe respondeu bem à discussão, dizendo que extremos não são bons: tanto a obesidade muito alta quanto estar magro demais podem ser problemas.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Key Vocabulary</h2>
+          <div class="vocab-grid">
+            <div class="vocab">
+              <h3>Shortcut</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) atalho; caminho mais rápido para chegar a um resultado</em><br>
+                <small>Some people use medicine as a shortcut to faster results.</small>
+              </p>
+            </div>
+            <div class="vocab green">
+              <h3>Cravings</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) desejos fortes e repentinos por comida ou bebida</em><br>
+                <small>Ozempic can reduce sudden cravings.</small>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOVOS TÓPICOS: VOCABULÁRIO DA AULA, FRASES MODELO, CORREÇÕES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Vocabulário da aula</h2>
+          <div class="outline-card">
+            <h3 style="margin-top:0;">Frases usadas em aula</h3>
+            <ul>
+              <li><em>Top 10 things that age you the fastest.</em></li>
+              <li><em>Smoking is number one on the list.</em></li>
+              <li><em>Sleep deprivation is number two on the list.</em></li>
+              <li><em>Air pollution is surprising.</em></li>
+              <li><em>I like to run and I like to go to the gym.</em></li>
+              <li><em>I have more energy.</em></li>
+              <li><em>Brazil is number two.</em></li>
+              <li><em>The final objective is the visual.</em></li>
+              <li><em>Maybe both.</em></li>
+              <li><em>It is a shortcut to a faster result.</em></li>
+              <li><em>Don’t become addicted.</em></li>
+              <li><em>Ozempic reduces your appetite.</em></li>
+              <li><em>It stops sudden cravings.</em></li>
+              <li><em>It slows down how fast your stomach empties food.</em></li>
+              <li><em>You know what drives me crazy?</em></li>
+              <li><em>Just love your body.</em></li>
+              <li><em>No need to change anything.</em></li>
+              <li><em>Inject and shrink.</em></li>
+              <li><em>The scale is going down.</em></li>
+              <li><em>No need to eat better, no need to move more, no need to sleep well.</em></li>
+            </ul>
+
+            <h3>Vocabulário completo da aula</h3>
+            <ul>
+              <li><strong>age</strong> – idade; envelhecer</li>
+              <li><strong>to age</strong> – envelhecer</li>
+              <li><strong>appearance</strong> – aparência</li>
+              <li><strong>weathered</strong> – com aparência desgastada/envelhecida</li>
+              <li><strong>excessive alcohol</strong> – álcool em excesso</li>
+              <li><strong>smoking</strong> – fumar; tabagismo</li>
+              <li><strong>poor diet</strong> – alimentação ruim</li>
+              <li><strong>chronic stress</strong> – estresse crônico</li>
+              <li><strong>sleep deprivation</strong> – privação de sono</li>
+              <li><strong>dehydration</strong> – desidratação</li>
+              <li><strong>obesity</strong> – obesidade</li>
+              <li><strong>sun exposure</strong> – exposição ao sol</li>
+              <li><strong>wrinkles</strong> – rugas</li>
+              <li><strong>air pollution</strong> – poluição do ar</li>
+              <li><strong>loneliness</strong> – solidão</li>
+              <li><strong>alone</strong> – sozinho(a)</li>
+              <li><strong>body image</strong> – imagem corporal</li>
+              <li><strong>body pressure</strong> – pressão estética / pressão sobre o corpo</li>
+              <li><strong>to go to the gym</strong> – ir à academia</li>
+              <li><strong>health</strong> – saúde</li>
+              <li><strong>mind</strong> – mente</li>
+              <li><strong>energy</strong> – energia / disposição</li>
+              <li><strong>steroids</strong> – esteroides / anabolizantes</li>
+              <li><strong>per capita</strong> – por pessoa / proporcional à população</li>
+              <li><strong>advantage</strong> – vantagem</li>
+              <li><strong>strength</strong> – força</li>
+              <li><strong>visual</strong> – aparência / resultado visual</li>
+              <li><strong>appearance</strong> – aparência</li>
+              <li><strong>huge trend</strong> – grande tendência</li>
+              <li><strong>to get thinner</strong> – ficar mais magro(a)</li>
+              <li><strong>medicine</strong> – remédio / medicamento</li>
+              <li><strong>to find out</strong> – descobrir</li>
+              <li><strong>related to</strong> – relacionado a</li>
+              <li><strong>shortcut</strong> – atalho</li>
+              <li><strong>faster results</strong> – resultados mais rápidos</li>
+              <li><strong>motivation</strong> – motivação</li>
+              <li><strong>result</strong> – resultado</li>
+              <li><strong>addicted</strong> – viciado(a) / dependente</li>
+              <li><strong>bloodstream</strong> – corrente sanguínea</li>
+              <li><strong>to feel full</strong> – sentir-se cheio/satisfeito</li>
+              <li><strong>appetite</strong> – apetite</li>
+              <li><strong>blood sugar</strong> – açúcar no sangue / glicemia</li>
+              <li><strong>cravings</strong> – vontades fortes e repentinas</li>
+              <li><strong>to slow down</strong> – desacelerar / deixar mais lento</li>
+              <li><strong>stomach</strong> – estômago</li>
+              <li><strong>meal</strong> – refeição</li>
+              <li><strong>to lose weight</strong> – perder peso</li>
+              <li><strong>processed foods</strong> – alimentos industrializados/processados</li>
+              <li><strong>long-term effects</strong> – efeitos de longo prazo</li>
+              <li><strong>placebo effect</strong> – efeito placebo</li>
+              <li><strong>pill</strong> – comprimido</li>
+              <li><strong>to take a pill</strong> – tomar um comprimido</li>
+              <li><strong>erectile dysfunction</strong> – disfunção erétil</li>
+              <li><strong>side effects</strong> – efeitos colaterais</li>
+              <li><strong>body positivity</strong> – movimento de aceitação corporal</li>
+              <li><strong>mainstream</strong> – popular / comum no grande público</li>
+              <li><strong>in shape</strong> – em forma</li>
+              <li><strong>all of a sudden</strong> – de repente</li>
+              <li><strong>drive me crazy</strong> – me deixar irritado / me enlouquecer</li>
+              <li><strong>embrace</strong> – abraçar / aceitar</li>
+              <li><strong>weight</strong> – peso</li>
+              <li><strong>no matter how much</strong> – não importa o quanto</li>
+              <li><strong>inject</strong> – injetar</li>
+              <li><strong>shrink</strong> – encolher / diminuir</li>
+              <li><strong>nausea</strong> – enjoo / náusea</li>
+              <li><strong>muscle loss</strong> – perda de músculo</li>
+              <li><strong>gallstones</strong> – pedras na vesícula</li>
+              <li><strong>scale</strong> – balança</li>
+              <li><strong>the scale is going down</strong> – o número na balança está diminuindo</li>
+              <li><strong>both</strong> – ambos / os dois</li>
+              <li><strong>lazy message</strong> – mensagem preguiçosa / cômoda</li>
+              <li><strong>to eat better</strong> – comer melhor</li>
+              <li><strong>to move more</strong> – se movimentar mais</li>
+              <li><strong>to sleep well</strong> – dormir bem</li>
+              <li><strong>extreme</strong> – extremo</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Frases modelo da aula</h2>
+          <div class="outline-card">
+            <ul>
+              <li><strong>Incorreto:</strong> <em>No new room, just new room.</em><br><strong>Melhor:</strong> <em>Not a new house, just a new room.</em></li>
+              <li><strong>Incorreto:</strong> <em>All my son's schools.</em><br><strong>Melhor:</strong> <em>At my son’s school.</em></li>
+              <li><strong>Incorreto:</strong> <em>I don't remember so good.</em><br><strong>Melhor:</strong> <em>I don't remember very well.</em></li>
+              <li><strong>Incorreto:</strong> <em>No drinking water.</em><br><strong>Melhor:</strong> <em>Not drinking enough water / dehydration.</em></li>
+              <li><strong>Incorreto:</strong> <em>No sleeping.</em><br><strong>Melhor:</strong> <em>Not sleeping enough / sleep deprivation.</em></li>
+              <li><strong>Incorreto:</strong> <em>I make exercise three times per week.</em><br><strong>Melhor:</strong> <em>I exercise three times a week.</em></li>
+              <li><strong>Incorreto:</strong> <em>Two times to the gym.</em><br><strong>Melhor:</strong> <em>I go to the gym twice a week.</em></li>
+              <li><strong>Incorreto:</strong> <em>The people like to get advantage.</em><br><strong>Melhor:</strong> <em>People like to get an advantage.</em></li>
+              <li><strong>Incorreto:</strong> <em>More fast.</em><br><strong>Melhor:</strong> <em>Faster.</em></li>
+              <li><strong>Incorreto:</strong> <em>I start to drink medicine.</em><br><strong>Melhor:</strong> <em>I started taking medicine.</em></li>
+              <li><strong>Incorreto:</strong> <em>I back.</em><br><strong>Melhor:</strong> <em>I came back / I started again.</em></li>
+              <li><strong>Incorreto:</strong> <em>I didn't feel anything more.</em><br><strong>Melhor:</strong> <em>I didn't feel anything anymore.</em></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ✅ NOVA SEÇÃO FIXA: CORREÇÕES IMPORTANTES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Correções importantes</h2>
+          <div class="outline-card">
+            <ul>
+              <li><strong>Age</strong> pode ser substantivo e verbo.<br>
+                <strong>Substantivo:</strong> <em>What’s your age?</em> / <em>How old are you?</em><br>
+                <strong>Verbo:</strong> <em>Smoking ages you.</em> = Fumar faz você envelhecer.</li>
+              <li><strong>Pronúncia:</strong> <em>body image</em> não deve soar como “body Amish”. Trabalhar a pronúncia de <strong>image</strong> com som final mais curto.</li>
+              <li><strong>Alone x loneliness:</strong><br>
+                <strong>Alone</strong> = sozinho(a), adjetivo. Ex.: <em>I am alone.</em><br>
+                <strong>Loneliness</strong> = solidão, substantivo. Ex.: <em>Loneliness can affect your health.</em></li>
+              <li><strong>Good x well:</strong><br>
+                <strong>Incorreto:</strong> <em>I don't remember so good.</em><br>
+                <strong>Correto:</strong> <em>I don't remember very well.</em></li>
+              <li><strong>Do exercise / exercise / go to the gym:</strong><br>
+                <strong>Melhor:</strong> <em>I exercise three times a week.</em> / <em>I go to the gym twice a week.</em></li>
+              <li><strong>Twice</strong> é mais natural que <em>two times</em> em várias situações.<br>
+                <strong>Melhor:</strong> <em>I go to the gym twice a week.</em></li>
+              <li><strong>Faster, não “more fast”:</strong><br>
+                <strong>Incorreto:</strong> <em>more fast</em><br>
+                <strong>Correto:</strong> <em>faster</em></li>
+              <li><strong>Take medicine, não drink medicine:</strong><br>
+                Para remédios em geral, usamos <strong>take</strong>. Ex.: <em>I take medicine.</em> / <em>I take a pill.</em></li>
+              <li><strong>Crave x cravings:</strong><br>
+                <strong>Crave</strong> = desejar muito. Ex.: <em>I’m craving chocolate.</em><br>
+                <strong>Cravings</strong> = desejos repentinos. Ex.: <em>Sudden cravings are common.</em></li>
+              <li><strong>Might</strong> indica possibilidade.<br>
+                Ex.: <em>You might get nausea.</em> = Você pode talvez sentir enjoo.</li>
+              <li><strong>Both</strong> = os dois / ambos. No vídeo, <em>both</em> se refere a <strong>body positivity</strong> e <strong>Ozempic</strong>.</li>
+              <li><strong>Here's the thing</strong> é uma expressão útil para introduzir o ponto principal de uma opinião.<br>
+                Ex.: <em>Here’s the thing: both push the same lazy message.</em></li>
+              <li><strong>No matter how much</strong> = não importa o quanto.<br>
+                Ex.: <em>Embrace your weight, no matter how much it is.</em></li>
+            </ul>
+          </div>
+        </section>
+        <!-- ✅ FIM DA NOVA SEÇÃO -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Transcrição &amp; Gravação</h2>
+          <div class="media-row">
+            <!-- Transcrição sem link (apenas botão) -->
+            <a class="media-btn" href="#" role="button">📄 Acessar transcrição</a>
+
+            <!-- Vídeo da aula com o link que você mandou -->
+            <a
+              class="media-btn"
+              href="https://youtu.be/Pskf2Y4VCxA"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="button"
+              style="background:linear-gradient(180deg,#1f6fd1,#2f86e6);color:#fff;border:none;min-width:260px;"
+            >
+              🎥 Assistir gravação (acesso privado)
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== TABELA DE DISTRIBUIÇÃO DE FALA ===== -->
+        <section class="speaking" aria-label="Distribuição de fala">
+          <h2>Tempo de Fala (Talk Time)</h2>
+          <table class="talk-table">
+            <thead>
+              <tr>
+                <th>Quem falou</th>
+                <th>Porcentagem</th>
+                <th>Duração aproximada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-teacher">
+                <td><span class="talk-label">César (Professor)</span></td>
+                <td><span class="talk-percent">63%</span></td>
+                <td class="talk-time">~38 minutos</td>
+              </tr>
+              <tr class="row-student">
+                <td><span class="talk-label">Felipe</span></td>
+                <td><span class="talk-percent">37%</span></td>
+                <td class="talk-time">~22 minutos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <!-- ===== FIM TABELA ===== -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Homework</h2>
+          <div class="homework">
+            <p style="margin:0 0 8px 0;">
+              📌 <strong>Lição de casa:</strong>
+            </p>
+            <ul style="margin:0 0 6px 18px;padding:0;font-size:0.94rem;color:var(--muted);">
+              <li>Ler este pós-aula de <strong>2 a 3 vezes na semana</strong> para revisar o vocabulário, as frases e as correções principais da aula.</li>
+            </ul>
+            <p style="margin:6px 0 0 0;">
+              <!-- Botão de tarefa de casa com link do Babadum -->
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary"
+                style="padding:8px 12px;border-radius:8px;font-weight:700;"
+              >
+                📝 Revisar pós-aula
+              </a>
+            </p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn" href="https://wa.me" style="background:#25D366;border-radius:10px;box-shadow:none;">
+              💬 Falar comigo no WhatsApp
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p style="margin:18px 0 0 0;color:var(--muted);font-size:0.9rem;">
+          © 2026 CZK English • Este conteúdo é exclusivo para fins educacionais. • Suporte: czkenglish@gmail.com
+        </p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
